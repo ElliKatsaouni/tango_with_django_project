@@ -18,7 +18,7 @@
 		         	{% if categories %}
 		             <ul class="list-group">
 		                 {% for category in categories %}
-		                 	<li class="list-group-item"><a href="{% url 'show_category' category.slug %}">{{ category.name }}</a> <span class="badge badge-pill badge-primary">{{category.likes}}</span></li>
+		                 	<li class="list-group-item"><a href="{% url 'show_category' category.slug %}">{{ category.name }}</a> </li>
 		                 {% endfor %}
 		             </ul>
 		        {% else %}
@@ -28,21 +28,22 @@
 				</p>
 
 			</div>
-			<div class="col-lg-6">
+	        <div>
 				<h4>Most Viewed Pages</h4>
 				<p>
+
 				{% if pages %}
-				<ul class="list-group">
-				{% for page in pages %}
-				 <li class="list-group-item"><a href="{% url 'goto' %}?page_id={{page.id}}"\>{{ page.title }}</a> <span class="badge badge-pill badge-primary">{{page.views}}</span></li>
-				 {% endfor %}
+                    <ul>
+				    {% for page in pages %}
+				         <li><a href="{{ page.url}}" >{{ page.title }}</a> </li>
+				    {% endfor %}
 				 </ul>
 				{% else %}
 				<strong>There are no categories present.</strong>
 			 {% endif %}
 				</p>
 			</div>
-		
+
             <div>
                 <a href="/rango/about/">About Rango</a><br />
                 <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
