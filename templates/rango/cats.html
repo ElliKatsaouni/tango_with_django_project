@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 <ul>
@@ -16,14 +16,14 @@
             </li>
         {% else %}
             <li>
-                <a href="{% url 'show_category' c.slug %}">{{ c.name }}</a>
+                  <a href="{% url 'show_category' c.slug %}">{{ c.name }}</a></li>
             </li>
         {% endif %}
     {% endfor %}
 {% else %}
-   <li><strong>There are no categories present</strong></li>
+    <li><strong>There are no categories present.</strong></li>
 
-   {% endif %}
+{% endif %}
 
 </ul>
 </body>
