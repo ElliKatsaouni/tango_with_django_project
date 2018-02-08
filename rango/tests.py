@@ -1,4 +1,4 @@
-#from django.test import TestCase
+from django.test import TestCase
 #from rango.models import Category
 
 #class CategoryMethodTests(TestCase):
