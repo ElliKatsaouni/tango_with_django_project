@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 def index(request):
+    request.session.set_test_cookie()
     context_dict ={}
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -20,6 +21,10 @@ def index(request):
     return render(request, 'rango/index.html', context_dict)
 
 def about(request):
+    request.session.set_test_cookie()
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
+        request.session.delete_test_cookie()
     # prints out whether the method is a GET or a POST
     print(request.method)
     # prints out the user name, if no one is logged in it prints `AnonymousUser`
@@ -57,7 +62,7 @@ def show_category(request, category_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'rango/category.html', context_dict)
 
-@login_required
+
 def add_category(request):
     form = CategoryForm()
 
