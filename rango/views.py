@@ -17,24 +17,18 @@ def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
     context_dict = {'categories': category_list,'pages' : page_list}
-
-    # Obtain our Response object early so we can add cookie information.
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
-    # Return response back to the user, updating any cookies that need changed.
     response = render(request, 'rango/index.html', context=context_dict)
     return response
 
 def about(request):
     request.session.set_test_cookie()
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
-    # prints out whether the method is a GET or a POST
-    print(request.method)
-    # prints out the user name, if no one is logged in it prints `AnonymousUser`
-    print(request.user)
-    return render(request, 'rango/about.html', {})
+    context_dict = {'aboutmessage': "This tutorial has been put together by Elli Katsaouni"}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+    response = render(request, 'rango/about.html', context=context_dict)
+    return response
 
 def show_category(request, category_name_slug):
     # Create a context dictionary which we can pass
@@ -83,6 +77,8 @@ def add_category(request):
             # We could give a confirmation message
             # But since the most recent category added is on the index page
             # Then we can direct the user back to the index page.
+            category = form.save(commit=True)
+            print(category, category.slug)
             return index(request)
         else:
                 # The supplied form contained errors -
@@ -209,7 +205,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    return HttpResponseRedirect(reverse('index'))
 
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
