@@ -77,8 +77,8 @@ def add_category(request):
             # We could give a confirmation message
             # But since the most recent category added is on the index page
             # Then we can direct the user back to the index page.
-            category = form.save(commit=True)
-            print(category, category.slug)
+            cat = form.save(commit=True)
+            print(cat, cat.slug)
             return index(request)
         else:
                 # The supplied form contained errors -
