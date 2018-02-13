@@ -205,7 +205,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('rango/restricted.html'))
 
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
